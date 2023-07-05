@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiktok_clone/constans.dart';
 import 'package:tiktok_clone/models/user.dart' as model;
+
 //import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthController extends GetxController {
+  static  AuthController instance  = Get.find();
   //upload to firebase storage
   Future<String> _uploadTheStorage(File image) async {
     Reference ref = firebaseStorage
@@ -39,6 +41,15 @@ class AuthController extends GetxController {
           profilePhoto: downloadUrl,
           email: email,
           uid: cred.user!.uid,
+        );
+        await firestore
+            .collection("users")
+            .doc(cred.user!.uid)
+            .set(user.toJson());
+      } else {
+        Get.snackbar(
+          "Error Creating Account",
+          "Please enter  all the fields",
         );
       }
     } catch (e) {

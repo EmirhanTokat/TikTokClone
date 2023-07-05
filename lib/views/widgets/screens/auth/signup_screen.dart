@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constans.dart';
+import 'package:tiktok_clone/controllers/auth_controller.dart';
 import 'package:tiktok_clone/views/widgets/text_input_field.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -100,9 +101,7 @@ class SignupScreen extends StatelessWidget {
                 ),
               ),
               child: InkWell(
-                onTap: () {
-                  print("register user");
-                },
+                onTap: () => authContoller.registerUser(_userController.text, _emailController, password, image),
                 child: const Center(
                   child: Text(
                     "Register",
