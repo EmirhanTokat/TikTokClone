@@ -4,13 +4,27 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/constans.dart';
 import 'package:tiktok_clone/models/user.dart' as model;
 
 //import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthController extends GetxController {
-  static  AuthController instance  = Get.find();
+  static AuthController instance = Get.find();
+  late Rx<File?> _pickedImage;
+  File? get profilePhoto => _pickedImage.value;
+
+  void pickImage() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      Get.snackbar("Profile Picture",
+          "You have succesfuly selected your profile picture!");
+    }
+    _pickedImage = Rx<File?>(File(pickedImage!.path));
+  }
+
   //upload to firebase storage
   Future<String> _uploadTheStorage(File image) async {
     Reference ref = firebaseStorage
@@ -55,6 +69,26 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar(
         "Error Creating Account",
+        e.toString(),
+      );
+    }
+  }
+
+  void loginUser(String email, String password) async {
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await firebaseAuth.signInWithEmailAndPassword(
+            email: email, password: password);
+        print("log succes");
+      } else {
+        Get.snackbar(
+          "Error Logging in",
+          "Please enter  all the fields",
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        "Error Login gin",
         e.toString(),
       );
     }
