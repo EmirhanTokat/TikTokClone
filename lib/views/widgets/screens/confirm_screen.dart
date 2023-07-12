@@ -34,6 +34,11 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     controller.setVolume(1);
     controller.setLooping(true);
   }
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
