@@ -7,10 +7,10 @@ import 'package:tiktok_clone/views/widgets/screens/add_video_screen.dart';
 import 'package:tiktok_clone/views/widgets/screens/video_screen.dart';
 
 
-const pages = [
+List pages = [
   VideoScreen(),
   Text("Search Screen"),
-  AddVideoScreen(),
+  const AddVideoScreen(),
   Text("Messages Screen"),
   Text("Profile Screen"),
 ];
