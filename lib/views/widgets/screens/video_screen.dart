@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/constans.dart';
 import 'package:tiktok_clone/controllers/video_controller.dart';
 import 'package:tiktok_clone/views/widgets/circle_animation.dart';
+import 'package:tiktok_clone/views/widgets/screens/comment_screen.dart';
 import 'package:tiktok_clone/views/widgets/video_player_item.dart';
 import 'package:video_player/video_player.dart';
 import 'package:get/get.dart';
@@ -155,11 +157,15 @@ class VideoScreen extends StatelessWidget {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () {},
-                                      child: const Icon(
+                                      onTap: () =>
+                                          videoController.likeVideo(data.id),
+                                      child: Icon(
                                         Icons.favorite,
                                         size: 40,
-                                        color: Colors.red,
+                                        color: data.likes.contains(
+                                                authContoller.user.uid)
+                                            ? Colors.red
+                                            : Colors.white,
                                       ),
                                     ),
                                     const SizedBox(
@@ -175,7 +181,13 @@ class VideoScreen extends StatelessWidget {
                                     Column(
                                       children: [
                                         InkWell(
-                                          onTap: () {},
+                                          onTap: () =>
+                                              Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CommentScreen(),
+                                            ),
+                                          ),
                                           child: const Icon(
                                             Icons.comment,
                                             size: 40,
