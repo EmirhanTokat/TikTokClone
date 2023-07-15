@@ -8,7 +8,8 @@ class CircleAnimation extends StatefulWidget {
   State<CircleAnimation> createState() => _CircleAnimationState();
 }
 
-class _CircleAnimationState extends State<CircleAnimation>with SingleTickerProviderStateMixin {
+class _CircleAnimationState extends State<CircleAnimation>
+    with SingleTickerProviderStateMixin {
   late AnimationController controller;
 
   @override
@@ -26,8 +27,8 @@ class _CircleAnimationState extends State<CircleAnimation>with SingleTickerProvi
 
   @override
   void dispose() {
-    super.dispose();
     controller.dispose();
+    super.dispose();
   }
 
   @override
